@@ -1,0 +1,20 @@
+[project]/front 위치(package.json 파일이 있는)에서
+>> npm install // npm이 설치가 되어 있지 않다면, 우분투 기준 apt-get으로 nodejs부터 npm 설치 필요
+>> npm run build
+ + [project]/meter-service/src/main/resources 위치에 static 폴더가 생김 (html/css/js 컴파일 된 압축 파일)
+[project]/meter-service 위치로 돌아와서 
+>> mvn clean
+>> mvn install
+>> docker build -t [docker hub] .
+>> docker push [docker hub]
+
+ex )
+>> cd /home/devleesk/git/NexMeter/front
+>> npm install
+>> npm run build
+>> cd /home/devleesk/git/NexMeter/meter-service
+>> mvn clean
+>> mvn install
+>> docker build -t nexclipper/meter:v1 .
+>> docker push nexclipper/meter:v1
+
