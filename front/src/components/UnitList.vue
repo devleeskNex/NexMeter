@@ -48,11 +48,13 @@
         <dashboard-series :unit="props.item.name"></dashboard-series>
         <rule-table :unitId="props.item.id"></rule-table>
       </template>
+      <!--
       <template slot="no-data">
         <v-alert :value="true" color="error" icon="warning">
           Sorry, nothing to display here :(
         </v-alert>
       </template>
+      -->
     </v-data-table>
 
     <unit-edit v-on:updated="load" ref="unit-edit"></unit-edit>

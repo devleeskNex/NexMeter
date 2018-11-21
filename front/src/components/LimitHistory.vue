@@ -21,11 +21,13 @@
           <td class="text-xs-right">{{ props.item.plan }}</td>
         </tr>
       </template>
+      <!--
       <template slot="no-data">
         <v-alert v-if="!loading" :value="true" color="error" icon="warning">
           Sorry, nothing to display here :(
         </v-alert>
       </template>
+      -->
     </v-data-table>
   </v-card>
 </template>

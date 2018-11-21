@@ -22,11 +22,13 @@
           </v-card-text>
         </v-card>
       </template>
+      <!-- 
       <template slot="no-data">
         <v-alert :value="true" color="error" icon="warning">
           Sorry, nothing to display here :(
         </v-alert>
       </template>
+      -->
     </v-data-table>
   </v-card>
 </template>
