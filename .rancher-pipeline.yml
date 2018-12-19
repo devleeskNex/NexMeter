@@ -1,0 +1,7 @@
+stages:
+- name: stage1
+  steps:
+  - runScriptConfig:
+      image: java:8
+      shellScript: echo "stage1 step1"
+timeout: 60
