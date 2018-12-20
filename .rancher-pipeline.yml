@@ -4,6 +4,8 @@ stages:
   - runScriptConfig:
       image: node:latest
       shellScript: |-
+        pwd
+        ls
         cd front
         npm install
         npm run build
