@@ -1,15 +1,17 @@
 stages:
-- name: front build
+- name: npm install
   steps:
   - runScriptConfig:
       image: node:latest
-      shellScript: cd "front"
-  - runScriptConfig:
-      image: node:latest
-      shellScript: ls
+      shellScript: npm install front
 - name: npm build
   steps:
   - runScriptConfig:
       image: node:latest
-      shellScript: pwd
+      shellScript: cd front
+- name: dd
+  steps:
+  - runScriptConfig:
+      image: node:latest
+      shellScript: ls
 timeout: 60
