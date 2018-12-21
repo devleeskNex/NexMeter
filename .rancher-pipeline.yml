@@ -3,7 +3,13 @@ stages:
   steps:
   - runScriptConfig:
       image: node:latest
-      shellScript: node -v
+      shellScript: cd front/
+  - runScriptConfig:
+      image: node:latest
+      shellScript: ls
+  - runScriptConfig:
+      image: node:latest
+      shellScript: npm install
 - name: front build
   steps:
   - runScriptConfig:
