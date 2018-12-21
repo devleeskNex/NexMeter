@@ -9,7 +9,9 @@ stages:
       shellScript: ls
   - runScriptConfig:
       image: node:latest
-      shellScript: ' cd front'
+      shellScript: |2-
+         cd front
+         ls
   - runScriptConfig:
       image: node:latest
       shellScript: ' npm install'
