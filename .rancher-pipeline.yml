@@ -8,10 +8,10 @@ stages:
   steps:
   - runScriptConfig:
       image: node:latest
-      shellScript: cd front
-- name: dd
+      shellScript: npm --prefix front run build
+- name: mvn clean
   steps:
   - runScriptConfig:
-      image: node:latest
-      shellScript: ls
+      image: java:8
+      shellScript: mvn -v
 timeout: 60
