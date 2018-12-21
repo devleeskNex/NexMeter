@@ -3,12 +3,12 @@ stages:
   steps:
   - runScriptConfig:
       image: node:latest
-      shellScript: npm install front
+      shellScript: npm install front/
 - name: npm build
   steps:
   - runScriptConfig:
       image: node:latest
-      shellScript: npm --prefix front run build
+      shellScript: npm --prefix front/ run build
 - name: mvn clean
   steps:
   - runScriptConfig:
