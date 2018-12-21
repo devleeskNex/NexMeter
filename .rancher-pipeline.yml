@@ -1,5 +1,5 @@
 stages:
-- name: front install
+- name: front build
   steps:
   - runScriptConfig:
       image: node:latest
@@ -7,12 +7,9 @@ stages:
   - runScriptConfig:
       image: node:latest
       shellScript: ls
-  - runScriptConfig:
-      image: node:latest
-      shellScript: npm install
-- name: front build
+- name: npm build
   steps:
   - runScriptConfig:
       image: node:latest
-      shellScript: npm -v
+      shellScript: pwd
 timeout: 60
