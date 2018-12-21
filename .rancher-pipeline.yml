@@ -3,7 +3,7 @@ stages:
   steps:
   - runScriptConfig:
       image: node:latest
-      shellScript: cd front/
+      shellScript: cd "front"
   - runScriptConfig:
       image: node:latest
       shellScript: ls
