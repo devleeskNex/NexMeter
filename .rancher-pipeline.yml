@@ -3,18 +3,34 @@ stages:
   steps:
   - runScriptConfig:
       image: node:latest
-      shellScript: |-
-        pwd
-        ls
-        cd front
-        npm install
-        npm run build
+      shellScript: pwd
+  - runScriptConfig:
+      image: node:latest
+      shellScript: ls
+  - runScriptConfig:
+      image: node:latest
+      shellScript: ' cd front'
+  - runScriptConfig:
+      image: node:latest
+      shellScript: ' npm install'
+  - runScriptConfig:
+      image: node:latest
+      shellScript: npm run build
+- name: stage2
+  steps:
   - runScriptConfig:
       image: java:8
-      shellScript: |-
-        cd ../meter-service
-        mvn clean
-        mvn install
-        docker build -t nexclipper/meter:v1 .
-        docker push nexclipper/meter:v1
+      shellScript: cd ../meter-service
+  - runScriptConfig:
+      image: java:8
+      shellScript: mvn clean
+  - runScriptConfig:
+      image: java:8
+      shellScript: mvn install
+  - runScriptConfig:
+      image: java:8
+      shellScript: docker build -t nexclipper/meter:v1 .
+  - runScriptConfig:
+      image: java:8
+      shellScript: docker push nexclipper/meter:v1
 timeout: 60
