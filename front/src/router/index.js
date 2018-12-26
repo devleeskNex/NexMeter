@@ -4,7 +4,9 @@ import Home from '@/views/Home'
 import Dashboard from '@/views/Dashboard'
 import Units from '@/views/Units'
 import Accounts from '@/views/Accounts'
+import Usage from '@/views/Usage'
 import AccountsDetail from '@/views/AccountsDetail'
+
 
 Vue.use(Router);
 
@@ -47,20 +49,25 @@ export default new Router({
           component: Units,
         },
         {
-          path: 'accounts',
-          name: 'accounts',
-          component: Accounts,
-        },
-        {
-          path: 'accounts/:externalKey',
-          name: 'accountsDetail',
-          component: AccountsDetail,
-          props: function (route) {
-            return {
-              externalKey: route.params.externalKey
-            }
-          }
-        }
+            path: 'accounts',
+            name: 'accounts',
+            component: Accounts,
+          },
+          {
+              path: 'usage',
+              name: 'usage',
+              component: Usage,
+            },
+            {
+                path: 'accounts/:externalKey',
+                name: 'accountsDetail',
+                component: AccountsDetail,
+                props: function (route) {
+                  return {
+                    externalKey: route.params.externalKey
+                  }
+                }
+              }
       ]
     }
   ]

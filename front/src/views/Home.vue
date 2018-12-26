@@ -78,7 +78,8 @@
         items: [
           {icon: 'dashboard', text: 'Dashboard', routerPath: '/dashboard'},
           {icon: 'list', text: 'Units', routerPath: '/units'},
-          {icon: 'filter_none', text: 'Accounts', routerPath: '/accounts'}
+          {icon: 'filter_none', text: 'Accounts', routerPath: '/accounts'},
+          {icon: 'filter_none', text: 'Usage', routerPath: '/usage'}
         ]
       }
     }
