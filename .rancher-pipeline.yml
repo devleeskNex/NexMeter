@@ -1,0 +1,17 @@
+stages:
+- name: npm install
+  steps:
+  - runScriptConfig:
+      image: node:latest
+      shellScript: npm install front/
+- name: npm build
+  steps:
+  - runScriptConfig:
+      image: node:latest
+      shellScript: npm --prefix front/ run build
+- name: mvn clean
+  steps:
+  - runScriptConfig:
+      image: java:8
+      shellScript: mvn -v
+timeout: 60
