@@ -13,7 +13,7 @@
         ></v-text-field>
         <v-btn small outline color="deep-orange" @click="addItem()">+ Add Unit</v-btn>
       </v-layout>
-    </v-card-title>
+    </v-card-title> 
 
     <v-data-table
       :pagination.sync="pagination"
