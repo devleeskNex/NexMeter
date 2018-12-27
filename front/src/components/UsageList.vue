@@ -1,6 +1,17 @@
 <template>
   <v-card>
-     <highcharts style="height: 200px" v-if="loaded" :options="options"></highcharts>
+  	<v-card-title>
+      <v-layout row>
+        Host
+      </v-layout>
+    </v-card-title>
+     <highcharts style="height: 200px" v-if="loaded" :options="optionsHost"></highcharts>
+     <v-card-title>
+      <v-layout row>
+        Container
+      </v-layout>
+    </v-card-title>
+     <highcharts style="height: 200px" v-if="loaded" :options="optionsContainer"></highcharts>
     <v-card-title>
       <v-layout row>
         Usage
@@ -38,24 +49,35 @@
   @Component
   export default class UsageList extends Vue {
     data() {
+
+	var option = function() {
+		return {
+			exporting: {enabled: false},
+			title: {
+				text: null
+			},
+			chart: {
+				zoomType: 'x'
+			},
+			xAxis: {
+				type: 'datetime',
+				dateTimeLabelFormats: {
+					day: '%e. %b',
+					week: '%e. %b',
+					month: '%b \'%y',
+					year: '%Y'
+				}
+			},
+			legend: {
+				enabled: false
+			}
+		};
+	}
       return {
         usage: [],
         loaded: false,
-        options: {
-        exporting: {enabled: false},
-        title: {
-          text: null
-        },
-        chart: {
-          zoomType: 'x'
-        },
-        xAxis: {
-          type: 'datetime'
-        },
-        legend: {
-          enabled: false
-        }
-      },
+        optionsHost: option(),
+        optionsContainer: option(),
         pagination: {
           rowsPerPage: 10,
           page: 1
@@ -121,37 +143,32 @@
     
 	async loadUnit(userName) {
 		var host = await axios.get('http://13.66.252.32:24452/query?q=select amount from record where username=\'' + encodeURIComponent(userName) + '\' and unit = \'host\' order by time desc limit 1000&db=meter');
-		var container = await axios.get('http://13.66.252.32:24452/query?q=select amount from record where username=\'' + encodeURIComponent(userName) + '\' and unit = \'container\' order by time desc limit 1000&db=meter');
+		if (typeof host.data.results[0].series != "undefined")
+			host = host.data.results[0].series[0].values.reverse();
+		else host = [];
 		
-		if (typeof host.data.results[0].series != "undefined") {
-			host = host.data.results[0].series[0].values;
-		} else {
-			host = [];
-		}
-		if (typeof container.data.results[0].series != "undefined") {
-			container = container.data.results[0].series[0].values;
-		} else {
-			container = [];
-		}    
-      var yAxis = [];
-      var series = [];
-        yAxis.push({ // Primary yAxis
-          labels: { format: '{value}', style: { color: Highcharts.getOptions().colors[0] } },
-          title: { text: 'container (AVG)', style: { color: Highcharts.getOptions().colors[0] } },
-          opposite: true
-        });
-        yAxis.push({ // Primary yAxis
-          labels: { format: '{value}', style: { color: Highcharts.getOptions().colors[1] } },
-          title: { text: 'host (AVG)', style: { color: Highcharts.getOptions().colors[1] } },
-          opposite: true
-        });
-        
-        series.push({ type: 'area', name: "container", yAxis: 0, data: container });
-        series.push({ type: 'area', name: "host", yAxis: 1, data: host });
-        
-      this.options.yAxis = yAxis;
-      this.options.series = series;
-      this.loaded = true;
-    }
-  }
+		var container = await axios.get('http://13.66.252.32:24452/query?q=select amount from record where username=\'' + encodeURIComponent(userName) + '\' and unit = \'container\' order by time desc limit 1000&db=meter');
+		if (typeof container.data.results[0].series != "undefined")
+			container = container.data.results[0].series[0].values.reverse();
+		else container = []; 
+		
+		
+		this.optionsHost.yAxis = this.getYAxis('Host (AVG)');
+		this.optionsHost.series = this.getSeries('Host', host);
+		
+		this.optionsContainer.yAxis = this.getYAxis('Container (AVG)'); 
+		this.optionsContainer.series = this.getSeries('Container', container);
+		this.loaded = true;
+	}
+	getYAxis(title) {
+		return [{
+			labels: { format: '{value}', style: { color: Highcharts.getOptions().colors[0] } },
+			title: { text: title, style: { color: Highcharts.getOptions().colors[0] } },
+			opposite: true
+		}];
+	}
+	getSeries(name, data) {
+		return [{ type: 'area', name: name, yAxis: 0, data: data }];
+	}
+}
 </script>
