@@ -2,7 +2,7 @@
   <div>
     <v-layout row wrap>
       <v-flex xs12>
-        <usage-list>s</usage-list>
+        <usage-list>stest</usage-list>
       </v-flex>
     </v-layout>
   </div>
